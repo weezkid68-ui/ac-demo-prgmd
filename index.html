@@ -2,6 +2,7 @@
 <html>
 
 <head>
+
     <title>Programmed Online Interview</title>
 
     <style>
@@ -20,12 +21,27 @@
             margin: auto;
         }
 
-        #chatWindow {
-            height: 400px;
-            border: 1px solid #cccccc;
-            padding: 20px;
-            overflow-y: auto;
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        #question {
             margin-top: 20px;
+            font-size: 20px;
+        }
+
+        #status {
+            color: #666;
+            margin-top: 15px;
         }
 
     </style>
@@ -36,13 +52,25 @@
 
 <div class="container">
 
-    <h1>Programmed Online Interview</h1>
+    <h1 id="title">
+        Programmed Online Interview
+    </h1>
 
-    <p>
-        Please answer the following questions.
-    </p>
+    <div id="status">
+    </div>
 
-    <div id="chatWindow"></div>
+    <div id="question">
+    </div>
+
+    <input
+        type="text"
+        id="answer"
+        placeholder="Type your answer here"
+    >
+
+    <button onclick="nextQuestion()">
+        Next
+    </button>
 
 </div>
 
@@ -58,45 +86,123 @@ const workflow =
         "workflow"
     );
 
-const chatWindow =
-    document.getElementById(
-        "chatWindow"
-    );
+let questions = [];
 
 if (workflow === "JobQuery")
 {
-    chatWindow.innerHTML = `
-        <h2>Job Application Interview</h2>
+    document.getElementById(
+        "title"
+    ).innerText =
+        "Job Application Interview";
 
-        <p>
-            Question 1 of 13
-        </p>
+    questions = [
 
-        <b>Programmed:</b>
-        Could you please tell me your first name?
-    `;
+        "Could you please tell me your first name?",
+
+        "And what is your last name?",
+
+        "What email address should we use to contact you about your application?",
+
+        "What type of work are you looking for?"
+
+    ];
 }
 else if (workflow === "ShiftQuery")
 {
-    chatWindow.innerHTML = `
-        <h2>Shift Request Interview</h2>
+    document.getElementById(
+        "title"
+    ).innerText =
+        "Shift Request Interview";
 
-        <p>
-            Question 1 of 8
-        </p>
+    questions = [
 
-        <b>Programmed:</b>
-        What date would you like to be considered for a shift?
-    `;
+        "What date would you like to be considered for a shift?",
+
+        "What is your preferred shift start time?",
+
+        "Which client would you like to work for?",
+
+        "Which department would you like to work in?"
+
+    ];
 }
 else
 {
-    chatWindow.innerHTML = `
-        <h2>Interview</h2>
+    questions = [
+        "Unknown workflow supplied."
+    ];
+}
 
-        <b>Programmed:</b>
-        We could not determine which interview to launch.
-    `;
+let currentQuestion = 0;
+
+const answers = {};
+
+showQuestion();
+
+
+function showQuestion()
+{
+    document.getElementById(
+        "status"
+    ).innerText =
+        "Question "
+        + (currentQuestion + 1)
+        + " of "
+        + questions.length;
+
+    document.getElementById(
+        "question"
+    ).innerText =
+        questions[currentQuestion];
+
+    document.getElementById(
+        "answer"
+    ).value = "";
+}
+
+
+function nextQuestion()
+{
+    const answer =
+        document.getElementById(
+            "answer"
+        ).value;
+
+    answers[
+        questions[currentQuestion]
+    ] = answer;
+
+    currentQuestion++;
+
+    if (
+        currentQuestion
+        >=
+        questions.length
+    )
+    {
+        document.getElementById(
+            "question"
+        ).innerHTML =
+            "<b>Interview Complete</b>";
+
+        document.getElementById(
+            "status"
+        ).innerText =
+            "";
+
+        document.getElementById(
+            "answer"
+        ).style.display =
+            "none";
+
+        console.log(
+            answers
+        );
+
+        return;
+    }
+
+    showQuestion();
 }
 
 </script>
