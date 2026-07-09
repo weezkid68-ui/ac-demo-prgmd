@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Programmed Online Interview</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background-color: #f5f5f5;
+            margin: 40px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        #chatWindow {
+            height: 400px;
+            border: 1px solid #cccccc;
+            padding: 20px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Programmed Online Interview</h1>
+
+    <p>
+        Please answer the following questions.
+    </p>
+
+    <div id="chatWindow"></div>
+
+</div>
+
+<script>
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const workflow =
+    urlParams.get(
+        "workflow"
+    );
+
+const chatWindow =
+    document.getElementById(
+        "chatWindow"
+    );
+
+if (workflow === "JobQuery")
+{
+    chatWindow.innerHTML =
+        "<b>Programmed:</b> Could you please tell me your first name?";
+}
+else if (workflow === "ShiftQuery")
+{
+    chatWindow.innerHTML =
+        "<b>Programmed:</b> Could you please tell me your first name?";
+}
+else
+{
+    chatWindow.innerHTML =
+        "<b>Programmed:</b> We could not determine which interview to launch.";
+}
+
+</script>
+
+</body>
+
+</html>
