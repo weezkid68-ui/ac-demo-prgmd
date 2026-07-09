@@ -65,18 +65,38 @@ const chatWindow =
 
 if (workflow === "JobQuery")
 {
-    chatWindow.innerHTML =
-        "<b>Programmed:</b> Could you please tell me your first name?";
+    chatWindow.innerHTML = `
+        <h2>Job Application Interview</h2>
+
+        <p>
+            Question 1 of 13
+        </p>
+
+        <b>Programmed:</b>
+        Could you please tell me your first name?
+    `;
 }
 else if (workflow === "ShiftQuery")
 {
-    chatWindow.innerHTML =
-        "<b>Programmed:</b> Could you please tell me your first name?";
+    chatWindow.innerHTML = `
+        <h2>Shift Request Interview</h2>
+
+        <p>
+            Question 1 of 8
+        </p>
+
+        <b>Programmed:</b>
+        What date would you like to be considered for a shift?
+    `;
 }
 else
 {
-    chatWindow.innerHTML =
-        "<b>Programmed:</b> We could not determine which interview to launch.";
+    chatWindow.innerHTML = `
+        <h2>Interview</h2>
+
+        <b>Programmed:</b>
+        We could not determine which interview to launch.
+    `;
 }
 
 </script>
