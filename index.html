@@ -3,11 +3,9 @@
 
 <head>
     <title>Programmed Online Interview</title>
-
     <meta charset="UTF-8">
 
     <style>
-
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -29,7 +27,7 @@
         }
 
         h1 {
-            color: ##87BC00;
+            color: #e74c3c;
             margin-top: 0;
         }
 
@@ -37,9 +35,7 @@
             color: #555555;
             font-size: 16px;
         }
-
     </style>
-
 </head>
 
 <body>
@@ -65,7 +61,6 @@
 </div>
 
 <script>
-
 const urlParams =
     new URLSearchParams(
         window.location.search
@@ -78,12 +73,10 @@ const workflow =
 
 let initialUtterance = "";
 
-if (workflow === "JobQuery")
-{
+if (workflow === "JobQuery") {
     initialUtterance = "Job query";
 }
-else if (workflow === "ShiftQuery")
-{
+else if (workflow === "ShiftQuery") {
     initialUtterance = "Shift query";
 }
 
@@ -92,13 +85,11 @@ document.getElementById(
 ).innerHTML =
     "<strong>Workflow:</strong> "
     + (workflow || "Not provided");
-
 </script>
 
 <script src="https://d2tmqmc8r1leha.cloudfront.net/lex-web-ui-loader.min.js"></script>
 
 <script>
-
 var loaderOpts = {
     baseUrl: "https://d2tmqmc8r1leha.cloudfront.net/",
     shouldLoadMinDeps: true
@@ -128,7 +119,6 @@ loader.load(
         console.error(error);
     }
 );
-
 </script>
 
 </body>
