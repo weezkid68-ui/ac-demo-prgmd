@@ -2,46 +2,31 @@
 <html>
 
 <head>
-
     <title>Programmed Online Interview</title>
 
     <style>
 
         body {
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            margin: 40px;
+            margin: 0;
+            padding: 20px;
         }
 
         .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 900px;
+            max-width: 1200px;
             margin: auto;
         }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 15px;
-            margin-bottom: 15px;
-            font-size: 16px;
+        h1 {
+            color: #e74c3c;
         }
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-
-        #question {
-            margin-top: 20px;
-            font-size: 20px;
-        }
-
-        #status {
-            color: #666;
-            margin-top: 15px;
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
 
     </style>
@@ -52,25 +37,21 @@
 
 <div class="container">
 
-    <h1 id="title">
-        Programmed Online Interview
-    </h1>
+    <div class="info-box">
 
-    <div id="status">
+        <h1>
+            Programmed Online Interview
+        </h1>
+
+        <p>
+            Welcome to Programmed.
+            Please complete your interview using the chat window below.
+        </p>
+
+        <p id="workflowDisplay">
+        </p>
+
     </div>
-
-    <div id="question">
-    </div>
-
-    <input
-        type="text"
-        id="answer"
-        placeholder="Type your answer here"
-    >
-
-    <button onclick="nextQuestion()">
-        Next
-    </button>
 
 </div>
 
@@ -86,124 +67,37 @@ const workflow =
         "workflow"
     );
 
-let questions = [];
+document.getElementById(
+    "workflowDisplay"
+).innerHTML =
+    "<strong>Workflow:</strong> "
+    + (workflow || "Not provided");
 
-if (workflow === "JobQuery")
-{
-    document.getElementById(
-        "title"
-    ).innerText =
-        "Job Application Interview";
+</script>
 
-    questions = [
+<script src="https://d2tmqmc8r1leha.cloudfront.net/lex-web-ui-loader.min.js"></script>
 
-        "Could you please tell me your first name?",
+<script>
 
-        "And what is your last name?",
+var loaderOpts = {
+    baseUrl: 'https://d2tmqmc8r1leha.cloudfront.net/',
+    shouldLoadMinDeps: true
+};
 
-        "What email address should we use to contact you about your application?",
+var loader =
+    new ChatBotUiLoader.IframeLoader(
+        loaderOpts
+    );
 
-        "What type of work are you looking for?"
+var chatbotUiConfig = {};
 
-    ];
-}
-else if (workflow === "ShiftQuery")
-{
-    document.getElementById(
-        "title"
-    ).innerText =
-        "Shift Request Interview";
-
-    questions = [
-
-        "What date would you like to be considered for a shift?",
-
-        "What is your preferred shift start time?",
-
-        "Which client would you like to work for?",
-
-        "Which department would you like to work in?"
-
-    ];
-}
-else
-{
-    questions = [
-        "Unknown workflow supplied."
-    ];
-}
-
-let currentQuestion = 0;
-
-const answers = {};
-
-showQuestion();
-
-
-function showQuestion()
-{
-    document.getElementById(
-        "status"
-    ).innerText =
-        "Question "
-        + (currentQuestion + 1)
-        + " of "
-        + questions.length;
-
-    document.getElementById(
-        "question"
-    ).innerText =
-        questions[currentQuestion];
-
-    document.getElementById(
-        "answer"
-    ).value = "";
-}
-
-
-function nextQuestion()
-{
-    const answer =
-        document.getElementById(
-            "answer"
-        ).value;
-
-    answers[
-        questions[currentQuestion]
-    ] = answer;
-
-    currentQuestion++;
-
-    if (
-        currentQuestion
-        >=
-        questions.length
-    )
-    {
-        document.getElementById(
-            "question"
-        ).innerHTML =
-            "<b>Interview Complete</b>";
-
-        document.getElementById(
-            "status"
-        ).innerText =
-            "";
-
-        document.getElementById(
-            "answer"
-        ).style.display =
-            "none";
-
-        console.log(
-            answers
-        );
-
-        return;
+loader.load(
+    chatbotUiConfig
+).catch(
+    function (error) {
+        console.error(error);
     }
-
-    showQuestion();
-}
+);
 
 </script>
 
