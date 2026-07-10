@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
     <title>Programmed Online Interview</title>
 
     <meta charset="UTF-8">
@@ -12,21 +11,31 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            text-align: center;
-            padding-top: 100px;
+            margin: 0;
+            padding: 20px;
         }
 
-        .card {
-            background: white;
-            padding: 40px;
-            max-width: 700px;
+        .container {
+            max-width: 1200px;
             margin: auto;
+        }
+
+        .header {
+            background: white;
+            padding: 24px;
             border-radius: 10px;
-            box-shadow: 0 0 10px #cccccc;
+            margin-bottom: 20px;
+            box-shadow: 0 0 8px #dddddd;
         }
 
         h1 {
-            color: #87BC00;
+            color: ##87BC00;
+            margin-top: 0;
+        }
+
+        .status {
+            color: #555555;
+            font-size: 16px;
         }
 
     </style>
@@ -35,15 +44,23 @@
 
 <body>
 
-<div class="card">
+<div class="container">
 
-    <h1>
-        Programmed Online Interview
-    </h1>
+    <div class="header">
 
-    <p id="status">
-        Preparing your interview...
-    </p>
+        <h1>
+            Programmed Online Interview
+        </h1>
+
+        <p>
+            Welcome to Programmed. Your interview will begin in the chat window below.
+        </p>
+
+        <p class="status" id="workflowStatus">
+            Preparing your interview...
+        </p>
+
+    </div>
 
 </div>
 
@@ -59,31 +76,58 @@ const workflow =
         "workflow"
     );
 
+let initialUtterance = "";
+
+if (workflow === "JobQuery")
+{
+    initialUtterance = "Job query";
+}
+else if (workflow === "ShiftQuery")
+{
+    initialUtterance = "Shift query";
+}
+
 document.getElementById(
-    "status"
+    "workflowStatus"
 ).innerHTML =
-    "Workflow detected: "
-    + (workflow || "Unknown")
-    + "<br><br>"
-    + "Redirecting to interview...";
+    "<strong>Workflow:</strong> "
+    + (workflow || "Not provided");
 
-const lexWebUiUrl =
-    "https://d2tmqmc8r1leha.cloudfront.net/index.html";
+</script>
 
-if (workflow)
-{
-    window.location.href =
-        lexWebUiUrl
-        + "?workflow="
-        + encodeURIComponent(workflow);
-}
-else
-{
-    document.getElementById(
-        "status"
-    ).innerHTML =
-        "No workflow parameter supplied.";
-}
+<script src="https://d2tmqmc8r1leha.cloudfront.net/lex-web-ui-loader.min.js"></script>
+
+<script>
+
+var loaderOpts = {
+    baseUrl: "https://d2tmqmc8r1leha.cloudfront.net/",
+    shouldLoadMinDeps: true
+};
+
+var loader =
+    new ChatBotUiLoader.IframeLoader(
+        loaderOpts
+    );
+
+var chatbotUiConfig = {
+    lex: {
+        initialUtterance: initialUtterance,
+        sessionAttributes: {
+            workflow: workflow || ""
+        }
+    },
+    ui: {
+        parentOrigin: "https://weezkid68-ui.github.io"
+    }
+};
+
+loader.load(
+    chatbotUiConfig
+).catch(
+    function (error) {
+        console.error(error);
+    }
+);
 
 </script>
 
