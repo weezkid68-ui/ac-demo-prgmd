@@ -2,31 +2,31 @@
 <html>
 
 <head>
+
     <title>Programmed Online Interview</title>
+
+    <meta charset="UTF-8">
 
     <style>
 
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
+            text-align: center;
+            padding-top: 100px;
         }
 
-        .container {
-            max-width: 1200px;
+        .card {
+            background: white;
+            padding: 40px;
+            max-width: 700px;
             margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #cccccc;
         }
 
         h1 {
             color: #e74c3c;
-        }
-
-        .info-box {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
         }
 
     </style>
@@ -35,23 +35,15 @@
 
 <body>
 
-<div class="container">
+<div class="card">
 
-    <div class="info-box">
+    <h1>
+        Programmed Online Interview
+    </h1>
 
-        <h1>
-            Programmed Online Interview
-        </h1>
-
-        <p>
-            Welcome to Programmed.
-            Please complete your interview using the chat window below.
-        </p>
-
-        <p id="workflowDisplay">
-        </p>
-
-    </div>
+    <p id="status">
+        Preparing your interview...
+    </p>
 
 </div>
 
@@ -68,36 +60,30 @@ const workflow =
     );
 
 document.getElementById(
-    "workflowDisplay"
+    "status"
 ).innerHTML =
-    "<strong>Workflow:</strong> "
-    + (workflow || "Not provided");
+    "Workflow detected: "
+    + (workflow || "Unknown")
+    + "<br><br>"
+    + "Redirecting to interview...";
 
-</script>
+const lexWebUiUrl =
+    "https://d2tmqmc8r1leha.cloudfront.net/index.html";
 
-<script src="https://d2tmqmc8r1leha.cloudfront.net/lex-web-ui-loader.min.js"></script>
-
-<script>
-
-var loaderOpts = {
-    baseUrl: 'https://d2tmqmc8r1leha.cloudfront.net/',
-    shouldLoadMinDeps: true
-};
-
-var loader =
-    new ChatBotUiLoader.IframeLoader(
-        loaderOpts
-    );
-
-var chatbotUiConfig = {};
-
-loader.load(
-    chatbotUiConfig
-).catch(
-    function (error) {
-        console.error(error);
-    }
-);
+if (workflow)
+{
+    window.location.href =
+        lexWebUiUrl
+        + "?workflow="
+        + encodeURIComponent(workflow);
+}
+else
+{
+    document.getElementById(
+        "status"
+    ).innerHTML =
+        "No workflow parameter supplied.";
+}
 
 </script>
 
