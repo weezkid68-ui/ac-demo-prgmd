@@ -27,7 +27,7 @@
         }
 
         h1 {
-            color: #e74c3c;
+            color: #87BC00;
             margin-top: 0;
         }
 
@@ -61,6 +61,7 @@
 </div>
 
 <script>
+
 const urlParams =
     new URLSearchParams(
         window.location.search
@@ -72,12 +73,17 @@ const workflow =
     );
 
 let initialUtterance = "";
+let toolbarTitle = "Programmed Online Interview";
 
 if (workflow === "JobQuery") {
     initialUtterance = "Job query";
+    toolbarTitle =
+        "Programmed Online Interview - Job Application";
 }
 else if (workflow === "ShiftQuery") {
     initialUtterance = "Shift query";
+    toolbarTitle =
+        "Programmed Online Interview - Shift Request";
 }
 
 document.getElementById(
@@ -85,11 +91,13 @@ document.getElementById(
 ).innerHTML =
     "<strong>Workflow:</strong> "
     + (workflow || "Not provided");
+
 </script>
 
 <script src="https://d2tmqmc8r1leha.cloudfront.net/lex-web-ui-loader.min.js"></script>
 
 <script>
+
 var loaderOpts = {
     baseUrl: "https://d2tmqmc8r1leha.cloudfront.net/",
     shouldLoadMinDeps: true
@@ -108,7 +116,8 @@ var chatbotUiConfig = {
         }
     },
     ui: {
-        parentOrigin: "https://weezkid68-ui.github.io"
+        parentOrigin: "https://weezkid68-ui.github.io",
+        toolbarTitle: toolbarTitle
     }
 };
 
@@ -119,6 +128,7 @@ loader.load(
         console.error(error);
     }
 );
+
 </script>
 
 </body>
